@@ -20,6 +20,11 @@ func main() {
 	}
 
 	grpcs := grpc.NewServer()
+	serverInterceptor := func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+		return handler(ctx, info)
+	}
+
+	grpc.UnaryInterceptor(serverInterceptor)
 	pb.RegisterHelloWordServer(grpcs, &HelloService{})
 	err = grpcs.Serve(listen)
 	if err != nil {
