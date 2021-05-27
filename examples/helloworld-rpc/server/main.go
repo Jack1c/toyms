@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"github.com/Jack1c/toyms"
+	"github.com/Jack1c/toyms/app"
 	"github.com/Jack1c/toyms/examples/helloworld/pb"
 	"google.golang.org/grpc"
 	"net"
@@ -13,7 +15,7 @@ func (hs *HelloService) SayHello(ctx context.Context, req *pb.HelloReq) (rsp *pb
 	return &pb.HelloRsp{Rt: "Hello:" + req.Name}, nil
 }
 
-func main() {
+func main1() {
 	listen, err := net.Listen("tcp", ":9988")
 	if err != nil {
 		panic(err)
@@ -31,4 +33,9 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func main() {
+	app.Name("hellworld")
+
 }
