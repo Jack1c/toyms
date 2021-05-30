@@ -6,17 +6,17 @@ import (
 )
 
 type RpcServer struct {
-	address  string
-	register func(server *grpc.Server)
+	Address  string
+	Register func(server *grpc.Server)
 }
 
-func Start(g RpcServer) error {
-	listen, err := net.Listen("tcp", g.address)
+func (rs RpcServer) Start() error {
+	listen, err := net.Listen("tcp", rs.Address)
 	if err != nil {
 		panic(err)
 	}
 	server := grpc.NewServer()
-	g.register(server)
+	rs.Register(server)
 	err = server.Serve(listen)
 	return err
 }
